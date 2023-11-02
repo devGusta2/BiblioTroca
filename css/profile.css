@@ -1,0 +1,22 @@
+#profile div.menu{
+    position: absolute;
+    bottom: 0;
+    width: 25%;
+}
+
+#profile div.menu button{
+    display: block;
+    margin: auto;
+    width: 90%;
+    border: none;
+    border-top: 1px solid #CCC;
+    font-size:16pt;
+    /* TA FALTANDO IMAGEM AQUI EM BAIXO */
+    background: transparent no-repeat 10px 17px;
+    background-size: 30px;
+    text-align: right;
+}
+
+#profile div.menu button:hover{
+
+}

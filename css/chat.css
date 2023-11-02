@@ -1,0 +1,8 @@
+@import "global.css";
+
+#chat div.empty{
+    width: 49%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

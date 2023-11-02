@@ -1,0 +1,186 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+:root{
+    --bg-color: #fdfdfd;
+    --text-color: #333;
+    --main-color: #6695fd;
+    --white-color: #fdfdfd;
+    --shadow-color: rgba(0, 0, 0, .2);
+    --bg-nos: #100759;
+    --text: #444;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--text);
+}
+.box{
+    position: relative;
+    width: 1150px;
+    height: 470px;
+    background: var(--white-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+.box form{
+    position: absolute;
+    inset: 4px;
+    background: var(--main-color);
+    padding: 50px 40px;
+    border-radius: 8px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+.box form .box-form{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.box form .box-form textarea{
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background: var(--bg-color);
+    border-radius: .8rem;
+    margin: .7rem 0;
+    resize: none;
+    box-shadow: 0 .1rem.5rem var(--shadow-color);
+}
+.box form .box-form select{
+    background: var(--white-color);
+    color: var(--main-color);
+    font-size: 1.6rem;
+    width: 100%;
+    height: 50px;
+    border: 3px solid var(--white-color);
+    border-radius: 4px;
+}
+.box form .box-form .box-form-1,
+.box form .box-form .box-form-2,
+.box form .box-form .box-form-3{
+    display:flex;
+    flex-direction:column;
+}
+.box form h2{
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+.box form label{
+    color: var(--bg-color);
+    font-size: 20px;
+    margin-top: 27px;
+}
+.box form .inputBox{
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+.box form .inputBox2{
+    position: relative;
+    width: 300px;
+    margin-top: 4px;
+}
+.box form .inputBox input{
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    border: none;
+    box-shadow: var(--bg-color);
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+}
+.box form .inputBox span{
+    position: absolute;
+    left: 0;
+    padding: 20px 0px 10px;
+    pointer-events: none;
+    color: var(--bg-color);
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+}
+.box form .inputBox input:valid ~ span,
+.box form .inputBox input:focus ~ span{
+    color: #fff;
+    font-size: 0.75em;
+    transition: translateY(-34px);
+}
+.box form .inputBox i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+}
+.box form .inputBox input:valid ~ i,
+.box form .inputBox input:focus ~ i{
+    height: 44px;
+}
+.box form .links{
+    display: flex;
+    justify-content: space-between;
+}
+.box form .links a{
+    margin: 10px 0;
+    font-size: 0.75em;
+    color: #f0e6e6;
+    text-decoration: none;
+}
+.box form .links a:hover,
+.box form .links a:nth-child(2){
+    color:#fff;
+}
+.box form .file[type="file"]::file-selector-button{
+    border: 2px solid var(--white-color);
+    outline: none;
+    padding: 9px 25px;
+    background: var(--white-color);
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+    width: 160px;
+    color: var(--main-color);
+    transition: 0.7s;
+}
+.box form .button[type="submit"]{
+    border: 2px solid var(--white-color);
+    outline: none;
+    padding: 9px 25px;
+    background: var(--white-color);
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+    width: 115px;
+    margin-top: 15px;
+    color: var(--main-color);
+    transition: 0.7s;
+}
+.box form .button:hover{
+    background: transparent;
+    color: var(--white-color);
+}
+.box form .button[type="submit"]:active{
+    opacity: 0.8;
+}

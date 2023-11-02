@@ -1,0 +1,640 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900;&display=swap');
+
+*{
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --blue: #6695fd;
+    --white: #fff;
+    --white2: #fff;
+    --white3: #fff;
+    --card: #fff;
+    --menu: #000;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+    --black3: #222;
+    --bg-color: #fdfdfd;
+    --text-color: #333;
+    --main-color: #6695fd;
+    --white-color: #fdfdfd;
+    --shadow-color: rgba(0, 0, 0, .2);
+    --bg-nos: #0b061f;
+}
+.dark-mode {
+    --blue: #fdfdfd;
+    --white: #0b061f;
+    --white3: #6695fd;
+    --gray: #0b061f;
+    --card: #161030;
+    --menu: #fff;
+    --black1: #fdfdfd;
+    --black2: #fff;
+}
+body{
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/*Trilho & Trem*/
+::-webkit-scrollbar{
+    background: var(--gray);
+}
+::-webkit-scrollbar-thumb{
+    background: var(--blue);
+    border: 2px solid var(--white);
+}
+/*FIM Trilho & Trem*/
+
+.container{
+    position: relative;
+    width: 100%;
+}
+.navigation{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--blue);
+    border-left: 10px solid var(--blue);
+    transition: 0.5s;
+    overflow: hidden;
+}
+.navigation.active{
+    width: 80px;
+}
+.navigation ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.navigation ul li{
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+.navigation ul li.active{
+    background-color: var(--white);
+}
+.navigation ul li:nth-child(1){
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+.navigation ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+}
+.navigation ul li a.active{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--blue);
+}
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 75px;
+    text-align: center;
+}
+.navigation ul li a .icon ion-icon{
+    font-size: 1.75rem;
+    background: #222;
+    
+}
+
+.navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+.navigation ul li a .title2{
+    position: relative;
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-top: 28px;
+    display: block;
+    padding: 0 10px;
+    text-align: start;
+    white-space: nowrap;
+}
+.imagem{
+    width: 210px;
+    margin-left: 35px;
+    padding: 25px;
+}
+.user{
+    position: relative;
+    left: 20px;
+    height: 50px;
+    width: 50px;
+    top: 17px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.user img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Curvas */
+.navigation ul li a.active::before  {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--white);
+    pointer-events: none;
+}
+.navigation ul li a.active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--white);
+    pointer-events: none;
+}
+
+/* Main */
+.main{
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--white);
+    transition: 0.5s;
+}
+.main.active{
+    width: calc(100% - 80px);
+    left: 80px;
+}
+.topbar{
+    width: 80.5%;
+    background: var(--blue);
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1px;
+    transition: 0.5s;
+}
+.toggle{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+.toggle ion-icon{
+    color: var(--white3);
+}
+.search{
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+.search label{
+    position: relative;
+    width: 100%;
+}
+.search label input{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    padding-left: 35px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid var(--text-color);
+}
+.search label ion-icon{
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 1.2rem;
+}
+#darkMode-icon{
+    font-size: 2.4rem;
+    color: var(--white3);
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+/* Cards */
+.cardBox{
+    position: relative;
+    width: 97%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+}
+.cardBox .card{
+    position: relative;
+    background: var(--card);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+.cardBox .card .numbers{
+    position: relative;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--blue);
+}
+.cardBox .card .cardName{
+    color: var(--black2);
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+.cardBox .card .iconBx{
+    font-size: 3.5rem;
+    color: var(--black2);
+}
+.cardBox .card:hover{
+    background: var(--blue);
+}
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBx{
+    color: var(--white);
+}
+
+/* Details Lista*/
+.details{
+    position: relative;
+    width: 71%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 500fr 1fr;
+    grid-gap: 30px;
+    margin-top: 10px;
+}
+.details .recentOrders{
+    position: relative;
+    margin-top: 50px;
+}
+.details .recentOrders .cardFeed{
+    position: relative;
+    margin-bottom: 20px;
+    min-height: 300px;
+    background: var(--card);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+.details .cardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.cardHeader h2{
+    font-weight: 600;
+    color: var(--blue);
+}
+.cardHeader .btn{
+    position: relative;
+    padding: 5px 10px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white2);
+    border-radius: 6px;
+}
+.details table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.details table thead td{
+    font-weight: 600;
+}
+.details .recentOrders table tr{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.details .recentOrders table tr:last-child{
+    border-bottom: none;
+}
+.details .recentOrders table tbody tr:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+.details .recentOrders table tr td{
+    padding: 10px;
+}
+.details .recentOrders table tr td form button{
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    background: var(--main-color);
+    color: #333;
+}
+.details .recentOrders table tr td form button:hover{
+    color: #f5f5f5;
+}
+.details .recentOrders table tr td a{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    background: red;
+    border: 2px solid #000;
+}
+.details .recentOrders table tr td .btnImagem{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    background: rgb(2, 215, 123);
+    border: 2px solid #000;
+}
+.details .recentOrders table tr td a:hover{
+    color: #f5f5f5;
+}
+.details .recentOrders table tr td:last-child{
+    text-align: end;
+}
+.details .recentOrders table tr td:nth-child(2){
+    text-align: start;
+}
+.details .recentOrders table tr td:nth-child(3){
+    text-align: start;
+}
+.details .recentOrders table tr td:nth-child(4){
+    text-align: start;
+}
+.details .recentOrders table tr td:nth-child(5){
+    text-align: start;
+}
+.details .recentOrders table tr td:nth-child(6){
+    text-align: center;
+}
+.details .recentOrders table tr td:nth-child(7){
+    text-align: center;
+}
+
+/* Leilão */
+.recentCustomers{
+    position: relative;
+    margin-top: 50px;
+}
+.recentCustomers .leilao{
+    position: fixed;
+    min-height: 500px;
+    width: 23%;
+    padding: 20px;
+    background: var(--card);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+.recentCustomers .imgBx{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.recentCustomers .imgBx img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.recentCustomers table tr td{
+    padding: 12px 10px;
+}
+.recentCustomers table tr td h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2rem;
+}
+.recentCustomers table tr td h4 span{
+    font-size: 14px;
+    color: var(--black2);
+}
+.recentCustomers table tr:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+.recentCustomers table tr:hover td h4 span{
+    color: var(--white);
+}
+
+/*Modal*/
+.janela-modal{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    position: fixed;
+    background: rgba(0, 0, 0, .9);
+}
+.modal{
+    width: 100%;
+    max-width: 750px;
+    min-height: 250px;
+    background: var(--bg-color);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-top: .8rem solid var(--main-color);
+    border-bottom: .8rem solid var(--main-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-color);
+}
+.motivos{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+.denuncia{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    bottom: 10px;
+}
+.texto{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 7px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.fechar{
+    position: absolute;
+    top: -16px;
+    right: -12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 6px solid var(--main-color);
+    background: white;
+    color: red;
+    font-size: 20px;
+    transition: 1s;
+}
+textarea{
+    resize: none;
+    border: 2px solid var(--text-color);
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.3), 0 6px 12px 0 rgba(0, 0, 0, 0.3);
+    margin-top: 15px;
+    border-radius: 5px;
+}
+.fechar:hover{
+    background: rgb(150, 9, 9);
+    color: white;
+}
+.modal h1{
+    color: var(--text-color);
+    margin: 4px;
+}
+.btn-modal{
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background: var(--main-color);
+    border-radius: .6rem;
+    box-shadow: 0 .2rem .5rem var(--shadow-color);
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--white-color);
+    letter-spacing: .1rem;
+    font-weight: 600;
+    border: .2rem solid transparent;
+    margin-top: 15px;
+    transition: .5s ease;
+}
+.btn-modal:hover{
+    background: transparent;
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+.janela-modal.abrir{
+    display: flex;
+}
+@keyframes abrirmodal{
+    from{
+        opacity: 0;
+        transform: translate3d(0, -20px,-5px);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0,0,0);
+    }
+}
+.abrir .modal{
+    animation: abrirmodal 0.5s;
+}
+/*FIM Modal*/
+
+/* Responsive */
+@media (max-width: 991px){
+    .navigation{
+        left: -300px;
+    }
+    .navigation.active{
+        width: 300px;
+        left: 0;
+    }
+    .main{
+        width: 100%;
+        left: 0;
+    }
+    .main.active{
+        left: 300px;
+    }
+    .cardBox{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px){
+    .details{
+        grid-template-columns: 1fr;
+    }
+    .recentOrders{
+        overflow-x: auto;
+    }
+    .status.inProgress{
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px){
+    .cardBox{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .cardHeader h2{
+        font-size: 20px;
+    }
+    .user{
+        min-width: 40px;
+    }
+    .navigation{
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+    }
+    .navigation.active{
+        width: 100%;
+        left: 0;
+    }
+    .toggle{
+        z-index: 10001;
+    }
+    .main.active .toggle{
+        color: #fff;
+        position: fixed;
+        right: 0;
+        left: initial;
+    }
+}
