@@ -15,6 +15,7 @@
     <link  href="../js/main.js">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -133,7 +134,11 @@
                 </div>
                 <div class="search">
                     <label>
-                        <input type="text" placeholder="Pesquise Aqui"></input>
+                    <input type="text" maxlenght="15" name="username" class="searchField" onkeyup="search()" placeholder="Pesquise aqui">
+                            <div style="position:absolute; background-Color:#EEEE; width:100%; overflow:hidden;
+                         border-radius:10px;" id="searchContainer">
+                            
+                        </div>
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
                 </div>
@@ -159,10 +164,37 @@
                         </div>
                         <div class="input-box">
                             <input type="number" placeholder="Número de páginas:" name="paginasLivro">
-                            <input type="text" placeholder="Acabamento:" name="acabamentoLivro">
+                          
+                            <select name="acabamentoLivro" id="">
+                            <option value="capaDura">Capa Dura</option>
+                            <option value="capaMole">Capa Mole (Paperback)</option>
+                            <option value="brochura">Brochura</option>
+                            <option value="wireO">Wire-O (Espiral)</option>
+                            <option value="perfeito">Perfeito (Perfect Binding)</option>
+                            <option value="costuradoColado">Costurado e Colado</option>
+                            <option value="lombadaQuadrada">Lombada Quadrada</option>
+                            <option value="lombadaRedonda">Lombada Redonda</option>
+                            <option value="laminação">Laminação</option>
+                            <option value="hotStamping">Hot Stamping</option>
+                            <option value="relevo">Relevo</option>
+                            <option value="dustJacket">Dust Jacket (Sobrecapa)</option>
+                            </select>
                         </div>
                         <div class="input-box">
-                            <input type="text" placeholder="Idioma:" name="idiomaLivro">
+                          
+                            <select name="idiomaLivro" id="">
+                                <option value="ingles">Inglês</option>
+                                <option value="espanhol">Espanhol</option>
+                                <option value="hindi">Hindi</option>
+                                <option value="frances">Francês</option>
+                                <option value="arabe">Árabe</option>
+                                <option value="russo">Russo</option>
+                                <option value="portugues">Português brasileiro</option>
+                                <option value="portugues">Português portugal</option>
+                                <option value="alemao">Alemão</option>
+                                <option value="chines">Chinês</option>
+                                <option value="japones">Japonês</option>
+                            </select>
                             <select name="genero" id="">
                                 <option value="Adulto">Adulto</option>
                                 <option value="Antologia">Antologia</option>
@@ -178,6 +210,11 @@
                                 <option value="Manga">Mangá</option>
                                 <option value="Revista">Revista</option>
                             </select>
+                        </div>
+                        <div class="input-box">
+                        <input type="text" placeholder="Motivo da troca:" name="motivoTroca">
+                        <input type="text" placeholder="R$:" name="valorMinimo">
+                        <input type="text" placeholder="Aceito em troca:" name="opcTroca">
                         </div>
                         <div class="input-box2">
                             <label>Adicionar Foto: 
@@ -206,6 +243,23 @@
 
     <!-- reveal -->
     <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script>
+                function search(){
+             var term=$('input.searchField').val();
+             if(term.length>=3){
+                 $.ajax({
+                     url: 'process/searchBook.php?term=' + term,
+                     success: function(data){
+                         $('#searchContainer').html(data);
+                         $('#searchContainer').show();
+                     }
+                 });
+             }else{
+                $('#searchContainer').hide();
+             }
+         }
+    </script>
 </body>
 </html>
 </body>

@@ -16,6 +16,7 @@
     <link  href="../js/main.js">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <script src="../js/jquery.js"></script>
     <style>
         .nobookClass{
             font-size: 18pt;
@@ -139,7 +140,11 @@
                     </div>
                     <div class="search">
                         <label>
-                            <input type="text" placeholder="Pesquise Aqui"></input>
+                        <input type="text" maxlenght="15" name="username" class="searchField" onkeyup="search()" placeholder="Pesquise aqui">
+                            <div style="position:absolute; background-Color:#EEEE; width:100%; overflow:hidden;
+                         border-radius:10px;" id="searchContainer">
+                            
+                        </div>
                             <ion-icon name="search-outline"></ion-icon>
                         </label>
                     </div>
@@ -152,7 +157,7 @@
                 <div class="recentOrders">
                 <?php
                         //SELECIONA OS LIVROS SALVOS PELO USUARIO LOGADO
-                                $sqlLivroSalvo="SELECT * FROM tbSalvo WHERE idPerfil='$idUser' ORDER BY idLivro DESC";
+                                $sqlLivroSalvo="SELECT * FROM tbSalvos WHERE idPerfil='$idUser' ORDER BY idLivro DESC";
                                 $final=$mysqli->query($sqlLivroSalvo);
                                 $count = $final->num_rows;
           
@@ -442,6 +447,21 @@
         function myFunction(a) {
             a.parentNode.getElementsByClassName("dropdown-content")[0].classList.toggle("show");
         }
+
+        function search(){
+             var term=$('input.searchField').val();
+             if(term.length>=3){
+                 $.ajax({
+                     url: 'process/searchBook.php?term=' + term,
+                     success: function(data){
+                         $('#searchContainer').html(data);
+                         $('#searchContainer').show();
+                     }
+                 });
+             }else{
+                $('#searchContainer').hide();
+             }
+         }
     </script>
 </body>
 

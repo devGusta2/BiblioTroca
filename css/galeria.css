@@ -111,9 +111,7 @@ body{
     text-align: center;
 }
 .navigation ul li a .icon ion-icon{
-    font-size: 1.75rem;
-    background: #222;
-    
+    font-size: 1.75rem;  
 }
 
 .navigation ul li a .title{

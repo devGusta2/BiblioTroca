@@ -35,7 +35,7 @@ if ($count<1){
                 <?php 
                     while($user_data1 = mysqli_fetch_assoc($user)){
                     $idOtherUser=$user_data1['idUser'];
-                    }
+                    
                     $sqlPfp=("SELECT * FROM tbPerfil WHERE idUser='$idOtherUser'");//photo for profile
                     $imgUserLivro=$mysqli->query($sqlPfp);    
                     while($infoUserLivro = mysqli_fetch_assoc($imgUserLivro))//perfil
@@ -44,6 +44,7 @@ if ($count<1){
                         $apelido=$infoUserLivro['apelidoPerfil'];
 
                         echo "<img src=".$testeImagemUser." alt='Foto do usuario'>";
+                    }
                     ?>
              
                     <p><?php echo $apelido;?></p>

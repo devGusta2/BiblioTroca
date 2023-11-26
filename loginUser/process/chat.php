@@ -93,6 +93,50 @@ include("../protect.php");
     max-width: 80%;
     color: white;
 }
+#chat .innerContainer .recievedTroca p{
+    height:10em;
+    padding: 10px 20px;
+    background-color: #EEE;
+    border-radius: 20px;
+    background-color: #6695FD;
+    max-width: 80%;
+    color: white;
+    
+}
+
+#chat .innerContainer .senderTroca p{
+    height:10em;
+    padding: 10px 20px;
+    background-color: #EEE;
+    border-radius: 20px;
+    background-color: #FFD14B;
+    max-width: 80%;
+    color: white;
+    
+}
+
+.accept{
+    background-color:#A1F365;
+    height:3em;
+    width:4em;
+    border-radius:15px;
+    text-align:center;
+    padding:1em 0;
+    cursor:pointer;
+    color:white;
+
+}
+.deny{
+    background-color:#FC5B5B;
+    height:3em;
+    width:4em;
+    border-radius:15px;
+    text-align:center;
+    padding:1em 0;
+    cursor:pointer;
+    color:white;
+    
+}
 
 #chat .innerContainer .sent{
     text-align: right;
@@ -124,6 +168,11 @@ include("../protect.php");
     position: relative;
     margin-top: -45%;
     margin-left: 5%;
+}
+
+#imgBook{
+    height:100px;
+    width:450px;
 }
             </style>
         

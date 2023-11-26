@@ -111,16 +111,16 @@ data: 28/09/2023-->
                         <span class="title">Publicar</span>
                     </a>
                 </li>
-                <li class="active">
-                    <a class="active" href="#">
+                <li>
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="bookmarks-outline"></ion-icon>
                         </span>
                         <span class="title">Salvos</span>
                     </a>
                 </li>
-                <li>
-                    <a href="chat.php">
+                <li class="active">
+                    <a class="active" href="chat.php">
                         <span class="icon">
                             <ion-icon name="chatbubbles-outline"></ion-icon>
                         </span>
@@ -158,7 +158,7 @@ data: 28/09/2023-->
 
 
 
-<div id="inbox" class="column" style="margin-left: 15%;">
+<div id="inbox" class="column" style="margin-left: 20em;">
         <p class="title">Conversas</p>
         <input type="text" maxlenght="15" name="username" class="searchField" onkeyup="search()" placeholder="Pesquisar conversa">
         <div id="searchContainer"></div>

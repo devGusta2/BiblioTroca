@@ -22,7 +22,42 @@ inserir os dados do usuario na tabela perfil
     $cidade=trim($_POST['cidade']);
     $bairro=$_POST['bairro'];
     $tel=$_POST['tel'];
-    $generoFavorito=$_POST['generoLivro'];
+
+    $res="";
+    if(isset($_POST['terror'])){
+        $res=$res.','.$_POST['terror'];
+    }if(isset($_POST['romance'])){
+        $res=$res.','.$_POST['romance'];
+    }if(isset($_POST['acao'])){
+        $res=$res.','.$_POST['acao'];
+    }if(isset($_POST['misterio'])){
+        $res=$res.','.$_POST['misterio'];
+    }if(isset($_POST['poesia'])){
+        $res=$res.','.$_POST['poesia'];
+    }if(isset($_POST['historia'])){
+        $res=$res.','.$_POST['historia'];
+    } if(isset($_POST['conto'])){
+        $res=$res.','.$_POST['conto'];
+    } if(isset($_POST['ciencia'])){
+        $res=$res.','.$_POST['ciencia'];
+    } if(isset($_POST['humor'])){
+        $res=$res.','.$_POST['humor'];
+    } if(isset($_POST['biografia'])){
+        $res=$res.','.$_POST['biografia'];
+    } if(isset($_POST['fantasia'])){
+        $res=$res.','.$_POST['fantasia'];
+    } if(isset($_POST['arte'])){
+        $res=$res.','.$_POST['arte'];
+    } if(isset($_POST['tecnologia'])){
+        $res=$res.','.$_POST['tecnologia'];
+    } if(isset($_POST['ficcao'])){
+        $res=$res.','.$_POST['ficcao'];
+    } if(isset($_POST['espiritualidade'])){
+        $res=$res.','.$_POST['espiritualidade'];
+    } if(isset($_POST['guias'])){
+        $res=$res.','.$_POST['guias'];
+    }
+    
     
     if(isset($_FILES['arquivoUser'])){
         $arquivo=$_FILES['arquivoUser'];
@@ -56,7 +91,7 @@ inserir os dados do usuario na tabela perfil
             //INSERE OS DADOS DO PERFIL
             $sqlInsertPerfil="INSERT INTO tbPerfil
             (apelidoPerfil,idadePerfil,sexoPerfil,biografiaPerfil,favGeneroPerfil,cepPerfil,cidadePerfil,bairroPerfil,fotoPerfil, path,idUser, cpfPerfil)
-            VALUES('$apelido','$idade','$sexo','$bio','$generoFavorito','$cep','$cidade','$bairro','$nomeDoArquivo','$path','$idUser','$cpf')";
+            VALUES('$apelido','$idade','$sexo','$bio','$res','$cep','$cidade','$bairro','$nomeDoArquivo','$path','$idUser','$cpf')";
 
             //atualiza o cadastro do usuario para cadastrado
 

@@ -56,6 +56,7 @@
                    $resultProfile=$mysqli->query($selectProfile);//perfil
                    $resultUser=$mysqli->query($selectUser);//usuario
                    $resultadoBook = $mysqli->query($sqlSelect);//livro
+                   $count=$resultadoBook->num_rows;
 
                    while($userData = mysqli_fetch_assoc($resultUser))//usuario
                    {
@@ -157,32 +158,47 @@
 
             <div class="details">
                 <div class="recentOrders">
-                    <div class="cardFeed">
+                <div class="cardFeed">
                         <section class="perfil-usuario">
                             <div class="contenedor-perfil">
-                                <div class="portada-perfil" style="background-image: url('http://localhost/multimedia/relleno/fondo-9.png');">
+                                <div class="portada-perfil" >
                                     <div class="sombra"></div>
-                                    <div class="avatar-perfil">
-                                        <img src="<?php echo $userImg;?>" alt="img">
-                                        <a href="#" class="cambiar-foto">
-                                            <i class="fas fa-camera"></i> 
-                                            <span>Adicionar foto</span>
-                                        </a>
-                                    </div>
+
+                                    <form enctype="multipart/form-data" action="updatePerfil.php" method="post">
+                                        <div class="avatar-perfil">
+                                            <img src="<?php echo $userImg;?>" alt="img"> 
+                                        </div>
+                                        <div class="opcciones-perfil">
+                                            <button type="submit">Alterar Foto
+                                            <input type="file" placeholder="Adicionar Foto" class="file" name="arquivoUser" id=""></button> 
+                                        </div>
+                                    </form> 
+
                                     <div class="datos-perfil">
                                         <h4 class="titulo-usuario"><?php echo $userName;?></h4>
                                         <p class="bio-usuario"><?php echo $bio;?></p>
                                         <ul class="lista-perfil">
-                                            <!-- implementar dps -->
-                                            <li>35 Seguidores</li>
-                                            <li>7 Seguidores</li>
-                                            <li>1 Publicações</li>
+                                            
+                                        <?php
+                                         $idUserMain=$_SESSION['id'];
+                                         $sqlVerify="SELECT * FROM tbSeguir WHERE idPerfil='$idUserMain'";
+                                         $resultado=$mysqli->query($sqlVerify);
+                                         $countSeguindo=$resultado->num_rows;
+
+                                         $selectSeguidores = "SELECT COUNT(idPerfil) AS totalSeguidores FROM tbSeguir WHERE idSeguindo='$idUserMain'";
+                                        $resSeguidores = $mysqli->query($selectSeguidores);
+                                         
+                                       
+                                        ?>
+                                            <li><?php  while($testeSeguidores=mysqli_fetch_assoc($resSeguidores)){
+                                            $val=$testeSeguidores['totalSeguidores'];
+                                            echo $val;
+                                        }?> Seguidores</li>
+                                            <li><?php echo $countSeguindo?> Seguindo</li>
+                                            <li><?php echo $count?> Publicações</li>
                                         </ul>
                                     </div>
-                                    <div class="opcciones-perfil">
-                                        <button type="">Adicionar Capa</button>
-                                        <button type=""><i class="fas fa-wrench"></i></button>
-                                    </div>
+                                    
                                 </div>
                                 <div class="menu-perfil">
                                     <ul>

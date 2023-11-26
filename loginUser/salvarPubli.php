@@ -4,7 +4,7 @@
     include("protect.php");
     $idUser=$_SESSION['id'];
     $idLivro=$_GET['idLivroSalvar'];
-    $sqlSave="INSERT INTO tbSalvo(idLivro, idPerfil)VALUES($idLivro,$idUser)";
+    $sqlSave="INSERT INTO tbSalvos(idLivro, idPerfil)VALUES($idLivro,$idUser)";
     $querySave=$mysqli->prepare($sqlSave);
     $querySave->execute();
 

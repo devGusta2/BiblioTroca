@@ -609,3 +609,8 @@ body{
         left: initial;
     }
 }
+
+.rowzinha{
+    display: flex;
+    flex-direction: row;
+}

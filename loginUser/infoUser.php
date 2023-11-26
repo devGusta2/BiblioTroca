@@ -9,21 +9,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feed</title>
+    <title>Perfil</title><link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/png" href="../images/logo.png" />
-    <link rel="stylesheet" href="../css/galeria.css">
+    <link rel="stylesheet" href="../css/perfil.css">
     <link rel="stylesheet" href="../css/style.css">
     <link  href="../js/main.js">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="../js/jquery.js"></script>
 </head>
+<style>
+    html {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        line-height: 1.4;
+    }
+</style>
 <body>
     <!-- Navigation -->
     <?php
-    $idUser=$_SESSION['id'];
-    $sqlSelect="SELECT * FROM tbPerfil WHERE idUser='$idUser'";//seleciona da tabela perfil
-    $sqlSelectUser="SELECT * FROM tbUser WHERE idUser='$idUser'";// seleciona da tabela User
+    $idUser=$_POST['id'];
+    
+    $sqlSelect="SELECT * FROM tbPerfil WHERE idUser='$idUser'";
+    $sqlSelectUser="SELECT * FROM tbUser WHERE idUser='$idUser'";
     $result=$mysqli->query($sqlSelectUser);
     $resultado = $mysqli->query($sqlSelect);
     
@@ -38,7 +48,45 @@
     }
 
     ?>
+         <?php
+                   $idUser=$_POST['id'];
 
+                   $idUserMain=$_SESSION['id'];
+                   //Para selecionar o icone do usuario logado
+                   $selectLogUser="SELECT path,apelidoPerfil FROM tbPerfil WHERE idPerfil='$idUserMain'";
+                   
+                   $resLog=$mysqli->query($selectLogUser);
+                   while($resLogUser=mysqli_fetch_assoc($resLog)){
+                    $imgUsuarioLogado=$resLogUser['path'];
+                    $apelidoUserMain=$resLogUser['apelidoPerfil'];
+                   }
+
+
+
+
+                   $sqlSelect="SELECT * FROM tbLivro WHERE idUser='$idUser'";
+                   $selectUser="SELECT * FROM tbUser WHERE idUser='$idUser'";
+                   $selectProfile="SELECT * FROM tbPerfil WHERE idUser='$idUser'";
+
+
+
+
+                   $resultProfile=$mysqli->query($selectProfile);//perfil
+                   $resultUser=$mysqli->query($selectUser);//usuario
+                   $resultadoBook = $mysqli->query($sqlSelect);//livro
+                   $count=$resultadoBook->num_rows;
+
+                   while($userData = mysqli_fetch_assoc($resultUser))//usuario
+                   {
+                       $userName=$userData['nomeUser'];
+                   }
+                   while($profile_data = mysqli_fetch_assoc($resultProfile))//perfil
+                    {
+                       $userImg=$profile_data['path'];
+                       $userApelido=$profile_data['apelidoPerfil'];
+                       $bio=$profile_data['biografiaPerfil'];
+                    }
+            ?>
  
     <div class="container">
         <div class="navigation">
@@ -47,23 +95,10 @@
                     <a href="#">
                         <span class="icon">
                             <div class="user">
-                            <?php
-                            
-                            while($user_data = mysqli_fetch_assoc($resultado)){echo "<img height='350'width='300' style='border-radius:10px; box-shadow:1px 1px 10px black;' src=".$user_data['path']." alt='Foto do usuario'>";}
-                            ?>
-                                
-                                
+                                <img src="<?php echo $imgUsuarioLogado?>" alt="">
                             </div>
                         </span>
-                        <span class="title2">Olá,
-                            <?php
-                            $sqlSelectUser2="SELECT * FROM tbUser WHERE idUser='$idUser'";// seleciona da tabela User
-                            $result2=$mysqli->query($sqlSelectUser2);
-                            while($user_data = mysqli_fetch_assoc($result2)){
-                            $userName=$user_data['nomeUser'];
-                            echo $userName;
-                            }?></span>
-                            
+                        <span class="title2">Olá,<?php echo $apelidoUserMain?></span>
                     </a>
                 </li>
                 <li>
@@ -74,8 +109,8 @@
                         <span class="title">Perfil</span>
                     </a>
                 </li>
-                <li class="active">
-                    <a class="active" href="#">
+                <li>
+                    <a href="galeria.php">
                         <span class="icon">
                             <ion-icon name="images-outline"></ion-icon>
                         </span>
@@ -107,7 +142,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="logout.php" style="color:white;">
+                    <a href="logout.php">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -129,11 +164,8 @@
                     </div>
                     <div class="search">
                         <label>
-                            <input type="text" maxlenght="15" name="username" class="searchField" onkeyup="search()" placeholder="Pesquise aqui">
-                            <div style="position:absolute; background-Color:#EEEE; width:100%; overflow:hidden;
-                         border-radius:10px;" id="searchContainer">
-                            
-                        </div>
+                            <input type="text" placeholder="Pesquise Aqui" onkeyup="search()"></input>
+                            <div id="searchContainer" style="position: absolute;"></div>
                             <ion-icon name="search-outline"></ion-icon>
                         </label>
                     </div>
@@ -144,11 +176,134 @@
 
             <div class="details">
                 <div class="recentOrders">
+                <div class="cardFeed">
+                        <section class="perfil-usuario">
+                            <div class="contenedor-perfil">
+                                <div class="portada-perfil" >
+                                    <div class="sombra"></div>
+
+                                    <form enctype="multipart/form-data" action="updatePerfil.php" method="post">
+                                        <div class="avatar-perfil">
+                                            <img src="<?php echo $userImg;?>" alt="img"> 
+                                        </div>
+                                        <div class="opcciones-perfil">
+                                            <button type="submit">Alterar Foto
+                                            <input type="file" placeholder="Adicionar Foto" class="file" name="arquivoUser" id=""></button> 
+                                        </div>
+                                    </form> 
+
+                                    <div class="datos-perfil">
+                                        <div style="display:flex; flex-direction:row; gap:1em;">
+                                            <h4 class="titulo-usuario"><?php echo $userName;?></h4>
+                                            <?php
+
+                                            if($_POST['id']){
+                                                if($idUserMain!=$idUser){
+                                                
+                                                    $sqlVerify="SELECT * FROM tbSeguir WHERE idPerfil='$idUserMain' AND idSeguindo='$idUser'";
+                                                    $resultado=$mysqli->query($sqlVerify);
+                                                    $countSeguidores=$resultado->num_rows;
+                                                                                    
+                                                    if($countSeguidores<1){
+                                                        ?>
+                                                        <form action="process/followProcess.php" method="post">
+                                                            <input type="hidden" name="seguir" value="deixarSeguir">
+                                                            <input type="hidden" name="id"value="<?php echo  $idUser?>">
+                                                                <button stype="submit" style="
+                                                                border-radius:10px;
+                                                                width:100px;
+                                                                color:white;
+                                                                font-weight:800;
+                                                                background-color:#95CA6E;
+                                                                border:none;
+                                                                outline:none;
+                                                                padding:10px;
+                                                                margin-top:1em;
+                                                                cursor:pointer;
+                                                                transition:0.5s;
+                                                                "
+                                                                onmouseover="this.style.backgroundColor='#B4E98D'"
+                                                                onmouseout="this.style.backgroundColor='#95CA6E'">
+                                                                    Seguir
+                                                                </button>
+                                                        </form>
+                                                        <?php
+                                                    }else{
+                                                        
+                                                        ?>
+                                                            <form action="process/followProcess.php" method="post">
+                                                                <input type="hidden" name="id"value="<?php echo  $idUser?>">
+                                                                <input type="hidden" name="excluir" value="deixarSeguir">
+                                                                
+                                                                <button stype="submit" style="
+                                                                border-radius:10px;
+                                                                width:100px;
+                                                                color:white;
+                                                                font-weight:800;
+                                                                background-color:#CA6E6E;
+                                                                border:none;
+                                                                outline:none;
+                                                                padding:10px;
+                                                                margin-top:1em;
+                                                                cursor:pointer;
+                                                                transition:0.5s;
+                                                                "
+                                                                onmouseover="this.style.backgroundColor='#E98D8D'"
+                                                                onmouseout="this.style.backgroundColor='#CA6E6E'">
+                                                                    Deixar de seguir
+                                                                </button>
+                                                            </form>
+                                                        <?php
+
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                        
+                                        <p class="bio-usuario"><?php echo $bio;?></p>
+                                        <ul class="lista-perfil">
+                                            
+                                        <?php
+                                         $idUserMain=$_SESSION['id'];
+                                         $sqlVerify="SELECT * FROM tbSeguir WHERE idPerfil='$idUser'";
+                                         $resultado=$mysqli->query($sqlVerify);
+                                         $countSeguindo=$resultado->num_rows;
+
+                                         $selectSeguidores = "SELECT COUNT(idPerfil) AS totalSeguidores FROM tbSeguir WHERE idSeguindo='$idUser'";
+                                        $resSeguidores = $mysqli->query($selectSeguidores);
+                                         
+                                       
+                                        ?>
+                                            <li><?php  while($testeSeguidores=mysqli_fetch_assoc($resSeguidores)){
+                                            $val=$testeSeguidores['totalSeguidores'];
+                                           
+                                            if($val>1){
+                                                echo $val."  Seguidores";
+                                            }else{
+                                                echo $val."  Seguidor";
+                                            }
+                                        }?> </li>
+                                            <li><?php echo $countSeguindo?> Seguindo</li>
+                                            <li><?php echo $count?> Publicações</li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                                <div class="menu-perfil">
+                                    <ul>
+                                        <li><a href="#" title=""><i class="icono-perfil fas fa-bullhorn"></i> Publicações</a></li>
+                                        <li><a href="#" title=""><i class="icono-perfil fas fa-info-circle"></i> Informarções</a></li>
+                                        <li><a href="#" title=""><i class="icono-perfil fas fa-grin"></i> Amigos 27</a></li>
+                                        <li><a href="#" title=""><i class="icono-perfil fas fa-camera"></i> Fotos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                     <?php
-                    $idUser=$_SESSION['id'];
-                    //COLOCAR UM FILTRO DOS LIVRO QUE ESTAO COM STATUS DE DISPONIVEL E FINIALIZADO
-                    
-                    $sqlSelect="SELECT * FROM tbLivro WHERE statusLivro='disponivel' ORDER BY idLivro DESC";// depois colocar sequencia para datas
+                  
+                    $sqlSelect="SELECT * FROM tbLivro WHERE idUser='$idUser'";
                     $selectUser="SELECT * FROM tbUser WHERE idUser='$idUser'";
                     $selectProfile="SELECT * FROM tbPerfil WHERE idUser='$idUser'";
 
@@ -163,16 +318,14 @@
                 
                     while($profile_data = mysqli_fetch_assoc($resultProfile))//perfil
                     {
-
+                       $userImg=$profile_data['path'];
                        $userApelido=$profile_data['apelidoPerfil'];
                     }
                 
                         while($book_data=mysqli_fetch_assoc($resultadoBook)){//livro
-                            $idUserLivro=$book_data['idUser'];
-                            $idLivro=$book_data['idLivro'];
                             $nomeLivro=$book_data['nomeLivro'];
-                            $descLivro=$book_data['descLivro'];
                             $autorLivro=$book_data['autorLivro'];
+                            $descLivro=$book_data['descLivro'];
                             $edicaoLivro=$book_data['edicaoLivro'];
                             $editoraLivro=$book_data['editoraLivro'];
                             $idiomaLivro=$book_data['idiomaLivro'];
@@ -185,27 +338,10 @@
                                     <div class="post-row">
                                         <div class="user-profile">
                                             <?php
-                                          
-                                           
-                                            $sqlPfp=("SELECT * FROM tbPerfil WHERE idUser='$idUserLivro'");//photo for profile
-                                            $imgUserLivro=$mysqli->query($sqlPfp);    
-                                            while($infoUserLivro = mysqli_fetch_assoc($imgUserLivro))//perfil
-                                            {
-                                               $testeImagemUser=$infoUserLivro['path'];
-                                               $apelido=$infoUserLivro['apelidoPerfil'];
-                                            }
-                                            ?>
-                                                <form action="infoUser.php" method="post">
-                                                    <input type="hidden" name="id" value="<?php echo $idUserLivro?>">
-                                                    <button type="submit" style="border:none; outline:none;background-color:transparent;cursor:pointer;">
-                                                        <img src="<?php echo $testeImagemUser?>" alt='Foto do usuario'>
-                                                    </button>
-                                                </form>
-                                            <?php
-                                            
+                                            echo "<img   src=".$userImg." alt='Foto do usuario'>";
                                             ?>
                                             <div>
-                                                <p><?php echo $apelido;?></p>
+                                                <p><?php echo $userName;?></p>
                                                 <!--Arrumar, ainda não foi 
                                                 implementado a data de postagem-->
                                                 <span><?php
@@ -281,53 +417,33 @@
                                                 
                                             </div>
                                         </div>
-                                        
                                         <div id="show-nav" class="dropdown">
-
                                             <div id="dropdown" onClick="myFunction(this)"><img src="../images/tresPontos.png" class="user-pic"></div>
-                                        
                                             <div id="myDropdown" class="dropdown-content">
-
                                                 <div class="user-info">
-                                                    
+                                                    <img src="../images/Eu.jpg">
+                                                    <h2>Henrique</h2>
                                                 </div>
                                                 <hr>
-
                                                 <a onclick="abrirModal5()" class="sub-menu-link">
                                                     <ion-icon name="megaphone-outline"></ion-icon>
 
-                                                    <p>Denunciar</p>
+                                                    <p>Denúnciar</p>
 
                                                     <span></span>
                                                 </a>
                                                 <a href="#" class="sub-menu-link">
                                                     <ion-icon name="bookmark-outline"></ion-icon>
-                                                    <form action="salvarPubli.php" method="GET">
-                                                        <input type="text" name="idLivroSalvar" value="<?php echo $idLivro;?>" hidden>
-                                                        <button type="submit">
-                                                            <p>Salvar Publicação</p>
-                                                            <span></span>
-                                                        </button>
-                                                    </form>
+                                                    <p>Salvar Publicação</p>
+                                                    <span></span>
                                                 </a>
-                                            </div>
-                                        
-                                        </div>
-                                        <div class="sub-menu-wrap" id="subMenu">
-                                            <div class="sub-menu">
-                                                
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Aumentar a fonte do titulo do livro -->
                                     <p class="post-text"><?php echo $nomeLivro;?><br><span><?php echo $descLivro?></span></p>
-                                    <form action="infoBook.php" method="POST">
-                                        <input type="hidden"name="idLivro"value="<?php echo $idLivro;?>">
-                                        <input type="hidden"name="idUserLivro"value="<?php echo $idUserLivro;?>">
-                                        
-                                        <?php echo "<button type='submit' style='cursor:pointer;background-image: url(".$capaLivro."); background-size: cover; background-position: center; width: 100%; height: 900px; border: none;'></button>"; ?>
-
-                                    </form>
+                                    <?php echo "<img   src=".$capaLivro." class='post-img'alt='capa do livro'>";?>
+                                    
 
                                     <div class="post-row">
                                         <div class="activity-icons">
@@ -340,157 +456,22 @@
                                 </div>
                             <?php
                         }
-                    ?>
-                </div>
-                <!-- Customers -->
-                <div class="recentCustomers">
-                    <div class="leilao">
-                        <div class="cardHeader">
-                            <h2>Leilões</h2>
-                        </div>
-
-                        <table>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/jk.jpg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Harry Potter 3<br> <span>J. K. Rowling</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/Andre.jpeg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Game of Thrones <br> <span>Andre Alves</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/Gustavo.jpeg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Dança dos Dragões <br> <span>Gustavo Rodrigues</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/nando.png" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Mazer Runner <br> <span>Nando Moura</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/jorge.jpg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Jogos Vorazes <br> <span>George Martin</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/alan.jpg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Naruto #3 <br> <span>AlanZoka</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/peter jordan.jpg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Vingadores #1 <br> <span>Peter Jordan</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/Julio.jpeg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Vingadores #1 <br> <span>Julio Martins</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="../images/José.jpg" alt=""></div>
-                                </td>
-                                <td>
-                                    <h4>Jujutsu Kaisen 0 <br> <span>José Guilherme</span></h4>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    ?>             
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Five-->
-
-    <div class="janela-modal" id="janela-modal5">
+    <!-- Modal -->
+    <div class="janela-modal" id="janela-modal">
         <div class="modal">
-            <button class="fechar" id="janela-modal5">X</button>
-            <h1>Motivo da denúncia?</h1>
-            <form action="salvarDenuncia.php" method="POST">
-                <div class="motivos">
-                    <div class="denuncia">
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Falta de compromisso" placeholder="">
-                            <p>Falta de compromisso</p>
-                        </div>
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Linguagem ou atitude preconceituosa">
-                            <p>Linguagem ou atitude preconceituosa</p>
-                        </div>
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Falso conteudo de negociação">
-                            <p>Falso conteúdo de negociação</p>
-                        </div>
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Item ilegal em divulgação">
-                            <p>Item ilegal em divulgação</p>
-                        </div>
-                    </div>
-                    <div class="denuncia">
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Plágio">
-                            <p>Plágio</p>
-                        </div>
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Conteúdo Ofensivo">
-                            <p>Conteúdo Ofensivo</p>
-                        </div>
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Divulgar informaçoes falsas">
-                            <p>Divulgar informações falsas</p>
-                        </div>
-                        <div class="texto">
-                            <input type="radio" name="opção" value="Quebra de regulamentos">
-                            <p>Quebra de regulamentos</p>
-                        </div>
-                    </div>
-                </div>
-                <textarea cols="90" rows="8" placeholder=" Descrição da denúncia" name="ocorrencia" name="descLivro"></textarea>
-                <button type="submit" class="btn-modal">Enviar</button>
-                <input hidden name="idDenunciado" value="<?php echo $idUserLivro  ?>">
-                <?php 
-                    $nomeUser = "SELECT * FROM tbuser WHERE idUser = '$idUserLivro'";
-                    $result = $mysqli->query($nomeUser);
+            <button class="fechar" id="janela-modal">X</button>
+            <h1>Tem certeza que deseja excluir o item selecionado?</h1>
+            <form action="remover.php" method="post">
+                <input class="form-control" id="id_mensagem" name="id_mensagem" value="<?=$mensagem[0]?>" type="hidden">
 
-                    while($nome=mysqli_fetch_assoc($result)){
-                        $nomeAcusado=$nome['nomeUser'];
-                }
-                
-                    
+                <button type="submit" class="btn-modal">Sim</button>
 
-                ?>
-                <input hidden name="nomeDenunciado" value="<?php echo $nomeAcusado  ?>">
-
-                
             </form>
         </div>
     </div>
@@ -510,22 +491,11 @@
 
     <!-- Menu : -->
     <script>
-        let subMenu = document.getElementById("subMenu");
-
-        function toggleMenu(a){
-            subMenu.classList.toggle("open-menu");
-        }
-
-        function myFunction(a) {
-            a.parentNode.getElementsByClassName("dropdown-content")[0].classList.toggle("show");
-        }
-
-
-        function search(){
+         function search(){
              var term=$('input.searchField').val();
              if(term.length>=3){
                  $.ajax({
-                     url: 'process/searchBook.php?term=' + term,
+                     url: 'process/search.php?term=' + term,
                      success: function(data){
                          $('#searchContainer').html(data);
                          $('#searchContainer').show();
@@ -535,6 +505,16 @@
                 $('#searchContainer').hide();
              }
          }
+
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu(a){
+            subMenu.classList.toggle("open-menu");
+        }
+
+        function myFunction(a) {
+            a.parentNode.getElementsByClassName("dropdown-content")[0].classList.toggle("show");
+        }
     </script>
 </body>
 

@@ -20,10 +20,13 @@ body{
     min-height: 100vh;
     background: var(--text);
 }
+.hide{
+    display: none;
+}
 .box{
     position: relative;
     width: 1150px;
-    height: 470px;
+    height: 670px;
     background: var(--white-color);
     border-radius: 8px;
     overflow: hidden;
@@ -90,6 +93,11 @@ body{
     position: relative;
     width: 300px;
     margin-top: 4px;
+}
+.box form .inputBox3{
+    position: relative;
+    width: 300px;
+    margin-top: 32px;
 }
 .box form .inputBox input{
     position: relative;
@@ -183,4 +191,18 @@ body{
 }
 .box form .button[type="submit"]:active{
     opacity: 0.8;
+}
+.box-form .box-form-3 .checkbox{
+    margin-bottom: 10px;
+    color: var(--bg-color);
+}
+.box-form .box-form-3 .genero{
+    display:flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+.box-form .box-form-3 .genero .itens{
+    display:flex;
+    flex-direction: column;
+    margin-right: 20px;
 }
