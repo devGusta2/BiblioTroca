@@ -2,77 +2,88 @@
 require('../dao/conexao.php');
     include('protect.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../images/logo.png" />
-    <link rel="stylesheet" href="../css/cadastroUser.css">
+    <link rel="stylesheet" href="../css/cadastro2.css">
     <title>Cadastro</title>
 </head>
-    <body>
+
+<body>
     <div id="fade" class="hide">
-      <div id="loader" class="spinner-border text-info hide" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <div id="message" class="hide">
-        <div class="alert alert-light" role="alert">
-          <h4>Mensagem:</h4>
-          <p></p>
-          <button id="close-message" type="button" class="btn btn-secondary">
-            Fechar
-          </button>
+        <div id="loader" class="spinner-border text-info hide" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
-      </div>
-      </div>
-        <div class="box">
+        <div id="message" class="hide">
+            <div class="alert alert-light" role="alert">
+                <h4>Mensagem:</h4>
+                <p></p>
+                <button id="close-message" type="button" class="btn btn-secondary">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form">
             <form enctype="multipart/form-data" action="SalvarCadastro2.php" method="post">
-                <h2>Quase lá</h2>
-                <div class="box-form">
-                    <div class="box-form-1">
-                        <div class="inputBox">
-                            <input type="text" name="cpf" id="" required="required" oninput="maskCPF(this)" maxLength="14">
-                            <span for="cep">CPF</span>
-                            <i></i>
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Cadastre-se</h1>
+                    </div>
+                    <div class="login-button">
+                        <div class="login-button-image">
+                            <img src="../images/icone.png">
                         </div>
-                        <div class="inputBox">
-                            <input type="text" name="cep" id="cep" required="required">
-                            <span>CEP</span>
-                            <i></i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" name="address" id="address" required="required">
-                            <span for="address">Rua</span>
-                            <i></i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" name="complement" id="complement" required="required">
-                            <span for="complement">Complemento</span>
-                            <i></i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" name="city" id="city" required="required">
-                            <span for="city">Cidade</span>
-                            <i></i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" name="number" id="number" required="required">
-                            <span for="number">Número da residência</span>
-                            <i></i>
+                        <div>
+                            <label for="arquivo">Adicionar Foto</label>
+                            <input type="file" id="arquivo" name="arquivoUser">
                         </div>
                     </div>
-                    <div class="box-form-2">
-                        <div class="inputBox">
-                            <input type="text" name="neighborhood" id="neighborhood" required="required">
-                            <span for="neighborhood">Bairro</span>
-                            <i></i>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-group-colums">
+                        <div class="input-box">
+                            <label>CPF:</label>
+                            <input type="text" name="cpf" id="" oninput="maskCPF(this)" maxLength="14" placeholder="000.000.000-00" required>
                         </div>
-                        <div class="inputBox3">
+
+                        <div class="input-box">
+                            <label>CEP:</label>
+                            <input type="text" name="cep" id="cep" placeholder="0000-000" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Rua:</label>
+                            <input type="text" name="address" id="address" placeholder="Digite sua rua" required>
+                        </div>
+
+                    </div>
+
+                    <div class="input-group-colums">
+
+                        <div class="input-box">
+                            <label for="neighborhood">Bairro:</label>
+                            <input type="text" name="bairro" id="neighborhood" placeholder="Digite seu bairro" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="city">Cidade:</label>
+                            <input type="text" name="city" id="city" placeholder="Digite sua cidade" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Estado:</label>
                             <select class="" id="region"
                             >
-                            <option selected>Estado</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>
@@ -102,74 +113,175 @@ require('../dao/conexao.php');
                             <option value="TO">Tocantins</option>
                             </select>
                         </div>
-                        <div class="inputBox">
-                            <input type="tel" name="tel"  onkeyup="handlePhone(event)" id="" maxlength="15" required="required">
-                            <span>Telefone</span>
-                            <i></i>
+
+                    </div>
+
+                    <div class="input-group-colums">
+
+                        <div class="input-box">
+                            <label>Complemento:</label>
+                            <input type="text" name="complement" id="complement" placeholder="Digite seu complemento" required>
                         </div>
-                        <div class="inputBox">
-                            <input type="text" name="apelido" required="required">
-                            <span>Apelido</span>
-                            <i></i>
+
+                        <div class="input-box">
+                            <label>Número da residência:</label>
+                            <input type="text" name="number" id="number" placeholder="Digite o número" required>
                         </div>
-                        <div class="inputBox">
-                            <input type="number" name="idade" required="required">
-                            <span>Idade</span>
-                            <i></i>
+
+                        <div class="input-box">
+                            <label>Telefone:</label>
+                            <input type="tel" name="tel"  onkeyup="handlePhone(event)" id="" maxlength="15" placeholder="(xx) xxxx-xxxx" required>
                         </div>
-                        <div class="inputBox">
-                            <input name="bio" id="textArea" required="required">
-                            <span>Biografia</span>
-                            <i></i>
+
+                    </div>
+
+                    <div class="input-group-colums">
+
+                        <div class="input-box">
+                            <label>Apelido:</label>
+                            <input type="text" name="apelido" placeholder="Digite um apelido" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Idade:</label>
+                            <input type="number" name="idade" placeholder="Digite sua idade" required>
+                        </div>
+
+                        <div class="input-box">
+                            <label>Biografia:</label>
+                            <input name="bio" id="textArea" placeholder="Digite uma frase" required>
                         </div>
                     </div>
-                    <div class="box-form-3">
-              
-                        <label>Gêneros Interesados:</label>
-                        <div class="genero">
-                            <div class="itens">
-                                <div class="checkbox"><input type="checkbox" name="terror" value=Terror> Terror</div>
-                                <div class="checkbox"><input type="checkbox" name="romance" value=Romance> Romance</div>
-                                <div class="checkbox"><input type="checkbox" name="acao" value=Ação> Ação</div>
-                                <div class="checkbox"><input type="checkbox" name="misterio" value=Mistério> Mistério</div>
-                                <div class="checkbox"><input type="checkbox" name="poesia" value=Poesia> Poesia</div>
-                                <div class="checkbox"><input type="checkbox" name="historia" value=História> História</div>
-                                <div class="checkbox"><input type="checkbox" name="conto" value=Conto> Conto</div>
-                                <div class="checkbox"><input type="checkbox" name="ciencia" value=Ciência> Ciência</div>
-                            </div>
-                            <div class="itens">
-                                <div class="checkbox"><input type="checkbox" name="humor" value=Humor> Humor</div>
-                                <div class="checkbox"><input type="checkbox" name="biografia" value=Biografia> Biografia</div>
-                                <div class="checkbox"><input type="checkbox" name="fantasia" value=Fantasia> Fantasia</div>
-                                <div class="checkbox"><input type="checkbox" name="arte" value=Arte> Arte</div>
-                                <div class="checkbox"><input type="checkbox" name="tecnologia" value=Tecnologia> Tecnologia</div>
-                                <div class="checkbox"><input type="checkbox" name="ficcao" value=Ficção científica> Ficção científica</div>
-                                <div class="checkbox"><input type="checkbox" name="espiritualidade" value=Espiritualidade> Espiritualidade</div>
-                                <div class="checkbox"><input type="checkbox" name="guias" value=Guias> Guias</div>
-                            </div>
-                        </div>
+                </div>
 
-
-                        <label>Sexo:</label>
-                        
-                        <select name="sexo" id="" class="inputBox2">
-                            <option value="feminino">Feminino</option>
-                            <option value="masculino">Masculino</option>
-                        </select>
-
-                        <label>Adicionar Foto:</label>
-
-                        <div class="inputBox2">
-                            <input type="file" placeholder="Adicionar Foto" class="file" name="arquivoUser" id="">  
-                        </div>
-                                
-                        <input class="button" type="submit" value="Finalizar">
+                <div class="gender-inputs">
+                    <div class="gender-title">
+                        <h6>Gêneros Interresados:</h6>
                     </div>
+
+                    <div class="gender-group">
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="female" type="checkbox" name="gender">
+                                <label for="female">Terror</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="male" type="checkbox" name="gender">
+                                <label for="male">Romance</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="others" type="checkbox" name="gender">
+                                <label for="others">Ação</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="none" type="checkbox" name="gender">
+                                <label for="none">Mistério</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="female" type="checkbox" name="gender">
+                                <label for="female">Poesia</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="male" type="checkbox" name="gender">
+                                <label for="male">História</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="others" type="checkbox" name="gender">
+                                <label for="others">Conto</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="none" type="checkbox" name="gender">
+                                <label for="none">Ciência</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="female" type="checkbox" name="gender">
+                                <label for="female">Humor</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="male" type="checkbox" name="gender">
+                                <label for="male">Biografia</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="others" type="checkbox" name="gender">
+                                <label for="others">Arte</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="none" type="checkbox" name="gender">
+                                <label for="none">Fantasia</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="female" type="checkbox" name="gender">
+                                <label for="female">Guias</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="male" type="checkbox" name="gender">
+                                <label for="male">Tecnologia</label>
+                            </div>
+
+                        </div>
+
+                        <div class="gender-group-colums">
+
+                            <div class="gender-input">
+                                <input id="others" type="checkbox" name="gender">
+                                <label for="others">Espiritualidade</label>
+                            </div>
+                            <div class="espaco"></div>
+                            <div class="gender-input">
+                                <input id="none" type="checkbox" name="gender">
+                                <label for="none">Ficção</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="continue-button">
+                    <input type="submit" value="Finalizar">
                 </div>
             </form>
         </div>
+    </div>
 
-        <script src='../js/script.js'></script>
+    <script src='../js/script.js'></script>
 
         <script>
 
@@ -322,5 +434,6 @@ require('../dao/conexao.php');
                 });
 
         </script>
-    </body>
+</body>
+
 </html>

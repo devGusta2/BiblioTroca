@@ -1,6 +1,6 @@
 <?php
 
-    $banco='bdchange';
+    $banco='bibliotroca';
     $senha='';
     $usuario='root';
     $host='localhost';

@@ -13,13 +13,12 @@ inserir os dados do usuario na tabela perfil
 
     $apelido=$_POST['apelido'];//foi
     $idade=$_POST['idade'];//foi
-    $sexo=$_POST['sexo'];//foi
     $bio=$_POST['bio'];//foi
 
     $cpf=trim($_POST['cpf']);//vai na tabela do usuario e nao da do perfil,
     // pois nao vais ser uma informação visível
     $cep=trim($_POST['cep']);
-    $cidade=trim($_POST['cidade']);
+    $cidade=trim($_POST['city']);
     $bairro=$_POST['bairro'];
     $tel=$_POST['tel'];
 
@@ -89,10 +88,9 @@ inserir os dados do usuario na tabela perfil
          
 
             //INSERE OS DADOS DO PERFIL
-            $sqlInsertPerfil="INSERT INTO tbPerfil
-            (apelidoPerfil,idadePerfil,sexoPerfil,biografiaPerfil,favGeneroPerfil,cepPerfil,cidadePerfil,bairroPerfil,fotoPerfil, path,idUser, cpfPerfil)
-            VALUES('$apelido','$idade','$sexo','$bio','$res','$cep','$cidade','$bairro','$nomeDoArquivo','$path','$idUser','$cpf')";
-
+            $sqlInsertPerfil="UPDATE tbPerfil SET apelidoPerfil='$apelido', idadePerfil='$idade',biografiaPerfil='$bio',
+            favGeneroPerfil='$res',cepPerfil='$cep',cidadePerfil='$cidade',bairroPerfil='$bairro',path='$path',idUser='$idUser',cpfPerfil='$cpf'
+            WHERE idPerfil='$idUser'";
             //atualiza o cadastro do usuario para cadastrado
 
             $sqlUpdate="UPDATE tbUser SET statusCadastro='cadastrado' WHERE idUser='$idUser'";

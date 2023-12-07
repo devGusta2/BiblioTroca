@@ -51,7 +51,7 @@ $n_idLivro = count($idLivro);
                                 <img src="../images/icone.png" alt="">
                             </div>
                         </span>
-                        <span class="title2"><?php echo $nomeUserAdm;?></span>
+                        <span class="title2">Olá, adm</span>
                     </a>
                 </li>
                 <li class="active">

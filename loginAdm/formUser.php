@@ -24,6 +24,7 @@ $nova = $mysqli->query($vai);
     <link  href="../js/main.js">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -38,7 +39,7 @@ $nova = $mysqli->query($vai);
                                 <img src="../images/icone.png" alt="">
                             </div>
                         </span>
-                        <span class="title2"><?php echo $nomeUserAdm;?></span>
+                        <span class="title2">Olá, adm</span>
                     </a>
                 </li>
                 <li>
@@ -103,7 +104,7 @@ $nova = $mysqli->query($vai);
                 </div>
                 <div class="search">
                     <label>
-                        <input type="text" placeholder="Pesquise Aqui"></input>
+                        <input type="text" placeholder="Pesquise Aqui" onkeyup="busca()" id="barra-pesquisa"></input>
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
                 </div>
@@ -116,7 +117,10 @@ $nova = $mysqli->query($vai);
                     <div class="cardHeader">
                         <h2>Usuários Cadastrados</h2>
                     </div>
+                    <div class="subTable">
 
+                    </div>
+                    <div class="defautTable">
                     <table>
                         <thead>
                             <tr>
@@ -124,7 +128,7 @@ $nova = $mysqli->query($vai);
                                 <td>Nome</td>
                                 <td>Email</td>
                                 <td>Idade</td>
-                                <td>Sexo</td>
+                            
                                 <td>CEP</td>
                                 <td>Estado</td>
                                 <td>CPF</td>
@@ -157,7 +161,7 @@ $nova = $mysqli->query($vai);
                                 <td><?php echo $nomeUser; ?></td>
                                 <td><?php echo $emailUser; ?></td>
                                 <td><?php echo $idade; ?></td>
-                                <td><?php echo $sexo; ?></td>
+                             
                                 <td><?php echo $cepPerfil; ?></td>
                                 <td><?php echo $cidadePerfil; ?></td>
                                 <td><?php echo $cpfPerfil; ?></td>
@@ -168,6 +172,9 @@ $nova = $mysqli->query($vai);
                             <?php } ?>
                         </tbody>
                     </table>
+
+                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,5 +203,22 @@ $nova = $mysqli->query($vai);
 
     <!-- reveal -->
     <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+                function busca(){
+            var contBusca=document.querySelector('#barra-pesquisa').value;
+                document.querySelector('.defautTable').style='display:none;';
+                document.querySelector('.subTable').style='display:block;';
+            if(contBusca===''){
+                document.querySelector('.defautTable').style='display:block;';
+                document.querySelector('.subTable').style='display:none;';
+            }
+            $.ajax({
+                url:'processos/search.php?buscaParam='+contBusca,
+                success:function(data){
+                    document.querySelector('.subTable').innerHTML=data;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

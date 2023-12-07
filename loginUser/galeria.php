@@ -148,13 +148,13 @@
                     $idUser=$_SESSION['id'];
                     //COLOCAR UM FILTRO DOS LIVRO QUE ESTAO COM STATUS DE DISPONIVEL E FINIALIZADO
                     
-                    $sqlSelect="SELECT * FROM tbLivro WHERE statusLivro='disponivel' ORDER BY idLivro DESC";// depois colocar sequencia para datas
+                    
                     $selectUser="SELECT * FROM tbUser WHERE idUser='$idUser'";
                     $selectProfile="SELECT * FROM tbPerfil WHERE idUser='$idUser'";
 
                     $resultProfile=$mysqli->query($selectProfile);//perfil
                     $resultUser=$mysqli->query($selectUser);//usuario
-                    $resultadoBook = $mysqli->query($sqlSelect);//livro
+                    
 
                     while($userData = mysqli_fetch_assoc($resultUser))//usuario
                     {
@@ -163,10 +163,27 @@
                 
                     while($profile_data = mysqli_fetch_assoc($resultProfile))//perfil
                     {
-
                        $userApelido=$profile_data['apelidoPerfil'];
+                       $genFav=$profile_data['favGeneroPerfil'];
+
                     }
-                
+                    
+                    //SELECIONA OS IDS DOS MEUS SEGUIDORES
+
+                    $sqlFollowers="SELECT * FROM tbSeguir WHERE idSeguindo='$idUser'";
+                    $resFollowers=$mysqli->query($sqlFollowers);
+                    while($seguidores=mysqli_fetch_assoc($resFollowers)){
+                        $idSeguidores=$seguidores['idSeguindo'];
+                        
+                    }
+                    
+                    $sqlSelect = "SELECT * FROM tbLivro 
+              WHERE statusLivro = 'disponivel' 
+              AND generoLivro IN ('$genFav') OR idUser='$idUser'
+              ORDER BY idLivro DESC";// depois colocar sequencia para datas
+                    $resultadoBook = $mysqli->query($sqlSelect);//livro
+
+
                         while($book_data=mysqli_fetch_assoc($resultadoBook)){//livro
                             $idUserLivro=$book_data['idUser'];
                             $idLivro=$book_data['idLivro'];
@@ -205,6 +222,7 @@
                                             
                                             ?>
                                             <div>
+                                                
                                                 <p><?php echo $apelido;?></p>
                                                 <!--Arrumar, ainda não foi 
                                                 implementado a data de postagem-->
@@ -293,10 +311,14 @@
                                                 </div>
                                                 <hr>
 
-                                                <a onclick="abrirModal5()" class="sub-menu-link">
-                                                    <ion-icon name="megaphone-outline"></ion-icon>
+                                                <a >
+                                                    
 
-                                                    <p>Denunciar</p>
+                                                    <form action="denunciapast.php" method="POST">
+                                                        <button type="submit"><ion-icon name="megaphone-outline">Denunciar</ion-icon>Denunciar</button>
+                                                        <input type="hidden" name="idUserDenunciado" value="<?php echo $idUserLivro;?>">
+                                                        <input type="hidden"  name="idLivroDenunciado"value="<?php echo $idLivro;?>">
+                                                    </form>
 
                                                     <span></span>
                                                 </a>
@@ -324,19 +346,80 @@
                                     <form action="infoBook.php" method="POST">
                                         <input type="hidden"name="idLivro"value="<?php echo $idLivro;?>">
                                         <input type="hidden"name="idUserLivro"value="<?php echo $idUserLivro;?>">
-                                        
-                                        <?php echo "<button type='submit' style='cursor:pointer;background-image: url(".$capaLivro."); background-size: cover; background-position: center; width: 100%; height: 900px; border: none;'></button>"; ?>
-
-                                    </form>
-
+                                        <?php echo "<img src=".$capaLivro." class='post-img'alt='capa do livro'>";?>  
+                                    
                                     <div class="post-row">
                                         <div class="activity-icons">
-                                            <div clas><i class='bx bx-like'></i> 120</div>
-                                            <div clas><i class='bx bx-chat'></i> 120</div>
-                                            <div clas><i class='bx bx-navigation'></i> 120</div>
+                                            <main>
+                                            <div class="like">
+                                                <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.9649 3.12832C8.29171 -2.5454 0.857422 0.545461 0.857422 6.72603C0.857422 11.3672 11.0494 18.6272 11.9649 19.5712C12.8866 18.6272 22.5717 11.3672 22.5717 6.72603C22.5717 0.592318 15.6449 -2.5454 11.9649 3.12832Z" fill="#3E4373"/>
+                                                </svg>
+                                                <i class="count-motion">0</i>
+                                                <span></span>
+                                            </div>
+                                            </main>
+                                            <div><a onclick="abrirComment()"style="cursor:pointer;"  class="sub-menu-link"><i class='bx bx-chat'></i>Comentários</a></div>
+                                            <div><button type='submit'><i class='bx bx-like'></i>Trocar</button></div>
                                         </div>
                                     </div>
+                                    </form>
                                     <div class="post-profile-icon"></div>
+                                    <div class="commentBox" id="caixa-comentario">
+                                        <h1>Comentários:</h1>
+                                        <form action="process/post.php" method="POST">
+
+                                            <div class="commented">
+                                                <?php 
+                                                $sqlFetchComment="SELECT * FROM tbPost WHERE idLivro='$idLivro'";
+                                                $res=$mysqli->query($sqlFetchComment);
+                                                $numComent=$res->num_rows;
+
+                                                if($numComent<1){
+                                                    echo("Esse post não possui nenhum comentário.");
+                                                }else{
+                                                    while($resComment=mysqli_fetch_assoc($res)){
+                                                        $idComentador=$resComment['idUser'];
+                                                        $comment=$resComment['comentPost'];
+
+
+                                                        $sqluser="SELECT * FROM tbPerfil WHERE idPerfil='$idUser'";
+                                                        $resmin=$mysqli->query($sqluser);
+                                                        while($comentData=mysqli_fetch_assoc($resmin)){
+                                                            $img=$comentData['path'];
+                                                            $userName=$comentData['apelidoPerfil'];
+                                                            ?>
+                                                                <div class="commentLine" style="background-color:#F1F1F1; padding:15px 30px; border-radius:10px;">
+                                                                    <p style="display:flex; flex-direction:row;">
+                                                                        <img src="<?php echo $img;?>" height="40px" width="40px" style="border-radius:50%";>
+                                                                        <b style="padding:10px 30px;"><?php echo $userName;?></b>
+                                                                    </p>
+                                                                    <br>
+                                                                    <p>
+                                                                        <?php echo $comment?>
+                                                                    </p>
+                                                                </div>
+                                                            <?php
+                                                
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+
+                                            <div class="rowComment">
+                                                <div class="input-box-comentario">
+                                                    <textarea class="comentario" placeholder="Digite seu comentário" name="coment" value=""></textarea>
+                                                    <input type="hidden" name="idLivro"value="<?php echo $idLivro;?>">
+                                                    <input type="hidden" name="id" value="<?php echo $idUser?>">
+                                                </div>
+                                                <button type="submit">
+                                                    Comentar
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>  
+            
                                 </div>
                             <?php
                         }

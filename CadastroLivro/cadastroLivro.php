@@ -69,7 +69,7 @@
                                 <img src="<?php echo $userImg?>" alt="">
                             </div>
                         </span>
-                        <span class="title2">Olá,<?php echo $userName?></span>
+                        <span class="title2">Olá, <?php echo $userName?></span>
                     </a>
                 </li>
                 <li>

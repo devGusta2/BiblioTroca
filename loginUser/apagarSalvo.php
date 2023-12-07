@@ -12,7 +12,7 @@ Código para excluir algum livro salvo da lista de salvos do usuario logado
     include("protect.php");
     $idUser=$_SESSION['id'];
     $idLivro=$_POST['idLivroDelete'];
-    $sqlSave="DELETE FROM tbSalvo WHERE (idLivro='$idLivro')";
+    $sqlSave="DELETE FROM tbSalvos WHERE (idLivro='$idLivro')";
     $querySave=$mysqli->prepare($sqlSave);
     $querySave->execute();
 

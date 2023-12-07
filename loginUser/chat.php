@@ -15,10 +15,9 @@ data: 28/09/2023-->
     <link rel="stylesheet" href="../css/inbox2.css">
     <link rel="stylesheet" href="../css/chat.css">
     <link rel="stylesheet" href="../css/galeria.css">   
-    
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/sweetalert2.css">
-    
+    <link rel="icon" type="image/png" href="../images/logo.png" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
     <script src="../js/jquery.js"></script>
@@ -112,7 +111,7 @@ data: 28/09/2023-->
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="salvos.php">
                         <span class="icon">
                             <ion-icon name="bookmarks-outline"></ion-icon>
                         </span>

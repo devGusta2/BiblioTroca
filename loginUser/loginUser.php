@@ -93,7 +93,7 @@
                 </div>
                 <p class="account-text">Não tenho conta? <a href="#" id="sign-up-btn2">Entrar</a></p>
             </form>
-            <form action="salvarCadastro.php" method="post" class="sign-up-form">
+            <form action="verificarEmail.php" method="post" class="sign-up-form">
                 <h2 class="title">Cadastrar</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -107,6 +107,8 @@
                     <i class="fas fa-lock"></i>
                     <input type="password" name="senhaCadastro" id="senhaForca" placeholder="Senha"  required="required" onkeyup="validarSenhaForca()">
                 </div>
+
+                
                 <!-- Mascara Senha -->
                 <div class="input-field2">
                     <div style="margin-left: 335px;" id="erroSenhaForca"><input style="display: none;" type="password" id="senhaForca" onkeyup="validarSenhaForca()" name="senhaCadastro" required="required"></div>
@@ -150,7 +152,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal de Confirmação de Cadastro -->
+    <div class="janela-modal" id="janela-modal12">
+        <div class="modal">
+            <button class="fechar" id="janela-modal12">X</button>
+            <h1>Cadastro foi efetuado</h1>
+            
+        </div>
+    </div>
+
+    <!-- Modal de Negação de Cadastro -->
+    <div class="janela-modal" id="janela-modal13">
+        <div class="modal">
+            <button class="fechar" id="janela-modal13">X</button>
+            <h1>Cadastro deu erro</h1>
+            
+        </div>
+    </div>
+
+    <!-- JS -->
+
     <script src="./js/script.js"></script>
+
+    <script src="../js/main.js"></script>
 
     <script>
         const sign_in_btn = document.querySelector("#sign-in-btn");
@@ -215,6 +240,12 @@
     }
     }
 
+
+
+
     </script>
+
+
+
 </body>
 </html>

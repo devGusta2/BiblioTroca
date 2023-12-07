@@ -22,6 +22,7 @@ $idLivro = $result->fetch_all();
     <link  href="../js/main.js">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -36,7 +37,7 @@ $idLivro = $result->fetch_all();
                                 <img src="../images/icone.png" alt="">
                             </div>
                         </span>
-                        <span class="title2"><?php echo $nomeUserAdm;?></span>
+                        <span class="title2">Olá, adm</span>
                     </a>
                 </li>
                 <li>
@@ -101,7 +102,7 @@ $idLivro = $result->fetch_all();
                 </div>
                 <div class="search">
                     <label>
-                        <input type="text" placeholder="Pesquise Aqui"></input>
+                    <input type="text" placeholder="Pesquise Aqui" onkeyup="busca()" id="barra-pesquisa"></input>
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
                 </div>
@@ -115,6 +116,10 @@ $idLivro = $result->fetch_all();
                         <h2>Livros Cadastrados</h2>
                     </div>
 
+                    <div class="subTable">
+
+                    </div>
+                    <div class="defautTable">
                     <table>
                         <thead>
                             <tr>
@@ -140,11 +145,11 @@ $idLivro = $result->fetch_all();
                                 <td><?= $idLivro[1] ?></td>
                                 <td><?= $idLivro[2] ?></td>
                                 <td><?= $idLivro[3] ?></td>
+                                <td><?= $idLivro[5] ?></td>
                                 <td><?= $idLivro[6] ?></td>
-                                <td><?= $idLivro[7] ?></td>
-                                <td><?= $idLivro[9] ?></td>
-                                <td><?= $idLivro[10] ?></td>
                                 <td><?= $idLivro[8] ?></td>
+                                <td><?= $idLivro[9] ?></td>
+                                <td><?= $idLivro[7] ?></td>
                                 <td>
                                     <a class="btnImagem" onclick="abrirModal3()"><ion-icon name="image-outline"></ion-icon></a>
                                 </td>
@@ -163,6 +168,7 @@ $idLivro = $result->fetch_all();
                             <?php } ?>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,5 +188,22 @@ $idLivro = $result->fetch_all();
 
     <!-- reveal -->
     <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+                function busca(){
+            var contBusca=document.querySelector('#barra-pesquisa').value;
+                document.querySelector('.defautTable').style='display:none;';
+                document.querySelector('.subTable').style='display:block;';
+            if(contBusca===''){
+                document.querySelector('.defautTable').style='display:block;';
+                document.querySelector('.subTable').style='display:none;';
+            }
+            $.ajax({
+                url:'processos/search.php?buscaLivro='+contBusca,
+                success:function(data){
+                    document.querySelector('.subTable').innerHTML=data;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

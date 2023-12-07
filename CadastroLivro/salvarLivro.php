@@ -42,8 +42,8 @@ $opcTroca=trim($_POST['opcTroca']);
 
          $deu_certo =  move_uploaded_file($arquivo['tmp_name'], $path);
           if($deu_certo){
-             $sqlInsert="INSERT INTO tbLivro(nomeLivro,descLivro,edicaoLivro,autorLivro,editoraLivro,idiomaLivro,paginasLivro,acabamentoLivro,idUser, nomeArquivo, path, motivoTroca,valorTroca,opcTroca )
-             VALUES ('$nomeLivro','$descLivro','$edicaoLivro','$autorLivro','$editoraLivro','$idiomaLivro','$paginasLivro','$acabamentoLivro','$idUser','$nomeDoArquivo', '$path','$motivo','$valor','$opcTroca')";
+             $sqlInsert="INSERT INTO tbLivro(nomeLivro,descLivro,edicaoLivro,autorLivro,editoraLivro,idiomaLivro,paginasLivro,acabamentoLivro,idUser, nomeArquivo, path, motivoTroca,valorTroca,opcTroca, generoLivro)
+             VALUES ('$nomeLivro','$descLivro','$edicaoLivro','$autorLivro','$editoraLivro','$idiomaLivro','$paginasLivro','$acabamentoLivro','$idUser','$nomeDoArquivo', '$path','$motivo','$valor','$opcTroca','$generoLivro')";
              $query=$mysqli->prepare($sqlInsert);
              $query->execute();
               

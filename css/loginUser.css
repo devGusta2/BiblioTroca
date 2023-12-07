@@ -205,3 +205,88 @@ body{
 .box form .button[type="submit"]:active{
     opacity: 0.8;
 }
+
+
+/*Modal*/
+.janela-modal{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    position: fixed;
+    background: rgba(0, 0, 0, .9);
+}
+.modal{
+    width: 100%;
+    max-width: 750px;
+    min-height: 250px;
+    background: var(--bg-color);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-top: .8rem solid var(--main-color);
+    border-bottom: .8rem solid var(--main-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-color);
+}
+.fechar{
+    position: absolute;
+    top: -16px;
+    right: -12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 6px solid var(--main-color);
+    background: white;
+    color: red;
+    font-size: 20px;
+    transition: 1s;
+}
+.fechar:hover{
+    background: rgb(150, 9, 9);
+    color: white;
+}
+.modal h1{
+    color: var(--text-color);
+    margin: 4px;
+}
+.btn-modal{
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background: var(--main-color);
+    border-radius: .6rem;
+    box-shadow: 0 .2rem .5rem var(--shadow-color);
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--white-color);
+    letter-spacing: .1rem;
+    font-weight: 600;
+    border: .2rem solid transparent;
+    transition: .5s ease;
+}
+.btn-modal:hover{
+    background: transparent;
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+.janela-modal.abrir{
+    display: flex;
+}
+@keyframes abrirmodal{
+    from{
+        opacity: 0;
+        transform: translate3d(0, -20px,-5px);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0,0,0);
+    }
+}
+.abrir .modal{
+    animation: abrirmodal 0.5s;
+}
+/*FIM Modal*/

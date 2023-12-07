@@ -18,6 +18,7 @@ $result = $mysqli->query($querySelect);
     <link  href="../js/main.js">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -32,7 +33,7 @@ $result = $mysqli->query($querySelect);
                                 <img src="../images/icone.png" alt="">
                             </div>
                         </span>
-                        <span class="title2"><?php echo $nomeUserAdm;?></span>
+                        <span class="title2">Olá, adm</span>
                     </a>
                 </li>
                 <li>
@@ -97,7 +98,7 @@ $result = $mysqli->query($querySelect);
                 </div>
                 <div class="search">
                     <label>
-                        <input type="text" placeholder="Pesquise Aqui"></input>
+                        <input type="text" placeholder="Pesquise Aqui" onkeyup="busca()" id="barra-pesquisa"></input>
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
                 </div>
@@ -111,6 +112,10 @@ $result = $mysqli->query($querySelect);
                         <h2>Usuários Bloqueados</h2>
                     </div>
 
+                    <div class="subTable">
+
+                    </div>
+                    <div class="defautTable">
                     <table>
                         <thead>
                             <tr>
@@ -145,6 +150,7 @@ $result = $mysqli->query($querySelect);
                             <?php } ?>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -158,7 +164,7 @@ $result = $mysqli->query($querySelect);
             <form action="deleteLivro.php" method="post">
                 <input class="form-control" id="idLivro" name="idLivro" value="<?=$idLivro[0]?>" type="hidden">
 
-                <button type="submit" class="btn-modal">Sim</button>
+                <button type="submit" class="btn-modal">Sim</button>    
 
             </form>
         </div>
@@ -176,5 +182,22 @@ $result = $mysqli->query($querySelect);
 
     <!-- reveal -->
     <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+                function busca(){
+            var contBusca=document.querySelector('#barra-pesquisa').value;
+                document.querySelector('.defautTable').style='display:none;';
+                document.querySelector('.subTable').style='display:block;';
+            if(contBusca===''){
+                document.querySelector('.defautTable').style='display:block;';
+                document.querySelector('.subTable').style='display:none;';
+            }
+            $.ajax({
+                url:'processos/search.php?buscaBloq='+contBusca,
+                success:function(data){
+                    document.querySelector('.subTable').innerHTML=data;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

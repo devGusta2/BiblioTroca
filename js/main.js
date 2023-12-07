@@ -112,3 +112,80 @@ function abrirModal6(){
       }
   })
 };
+
+/* Modal Seven Galeria-Comentario*/
+
+function abrirModal7(){
+  const modal = document.getElementById('janela-modal7')
+  modal.classList.add('abrir')
+
+  modal.addEventListener('click', (e) => {
+      if(e.target.id == 'fechar' || e.target.id == 'janela-modal7'){
+          modal.classList.remove('abrir')
+      }
+  })
+};
+
+/* Modal Eight LoginUser*/
+
+function abrirModal8(){
+  const modal = document.getElementById('janela-modal8')
+  modal.classList.add('abrir')
+
+  modal.addEventListener('click', (e) => {
+      if(e.target.id == 'fechar' || e.target.id == 'janela-modal8'){
+          modal.classList.remove('abrir')
+      }
+  })
+};
+
+/* Modal eleven verificarEmail*/
+
+function abrirModal11(){
+  const modal = document.getElementById('janela-modal11')
+  modal.classList.add('abrir')
+
+  modal.addEventListener('click', (e) => {
+      if(e.target.id == 'fechar' || e.target.id == 'janela-modal11'){
+          modal.classList.remove('abrir')
+      }
+  })
+};
+
+/* Modal 12 verificarEmail*/
+
+function abrirModal12(){
+  const modal = document.getElementById('janela-modal12')
+  modal.classList.add('abrir')
+
+  modal.addEventListener('click', (e) => {
+      if(e.target.id == 'fechar' || e.target.id == 'janela-modal12'){
+          modal.classList.remove('abrir')
+      }
+  })
+};
+
+/* Modal 13 verificarEmail*/
+
+function abrirModal13(){
+  const modal = document.getElementById('janela-modal13')
+  modal.classList.add('abrir')
+
+  modal.addEventListener('click', (e) => {
+      if(e.target.id == 'fechar' || e.target.id == 'janela-modal13'){
+          modal.classList.remove('abrir')
+      }
+  })
+};
+
+let ativa= false;
+function abrirComment(){
+  ativa=!ativa;
+  if(ativa){
+    document.getElementById('caixa-comentario').style.display='block';
+  }else{
+    document.getElementById('caixa-comentario').style.display='none';
+  }
+  
+}
+
